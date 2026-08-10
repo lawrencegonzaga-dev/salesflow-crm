@@ -1,0 +1,138 @@
+.app-layout {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--header-height) 1fr;
+}
+
+.app-sidebar {
+    grid-column: 1;
+    grid-row: 1 / -1;
+}
+
+.app-header {
+    grid-column: 2;
+    grid-row: 1;
+
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+}
+
+.app-main {
+    grid-column: 2;
+    grid-row: 2;
+
+    padding: var(--space-8);
+}
+
+.app-main_content{
+    width: min(100%, var(--content-max-width));
+    margin-inline: auto;
+}
+
+
+/*-----------SECTION-------------------*/
+
+.page {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--section-gap);
+}
+
+.page-header {
+    min-height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+/*----------Page-----------
+1. Dasahboard
+2. Contact
+------------------------*/
+
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+    }
+
+.dashboard-stat {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+}
+
+.dashboard-revenue {
+    width: 100%;
+}
+
+.dashboard-bottom {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.contacts-content {
+    width: 100%;
+}
+
+.leads-content {
+    width: 100%;
+}
+
+.deals-content {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.deals-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+
+}
+
+.task-content {
+    width: 100%;
+}
+
+.calendar-content {
+    width: 100%;
+    min-height: 600px;
+}
+
+.report-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+}
+
+.report-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: var(--space-6);
+}
+
+.report-charts {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+    gap: var(--space-6);
+}
+
+.settings-content {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+
+    gap: 32px;
+}
+
+
+
+
