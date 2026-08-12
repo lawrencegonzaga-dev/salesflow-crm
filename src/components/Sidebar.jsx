@@ -1,3 +1,6 @@
+import { NavLink } from "react-router-dom";
+import navigation  from "../data/navigation";
+
 function Sidebar () {
     return (
 
@@ -5,17 +8,11 @@ function Sidebar () {
             <h2>SalesFlow</h2>
 
         <nav>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
-            <a href=""></a>
+            {navigation.map((item) => (
+                <NavLink key={item.path} to={item.path}>{item.label}</NavLink>
+         
+        ))}
         </nav>
-
-        <a href="">Settings</a>
-
         </aside>
     );
 }
