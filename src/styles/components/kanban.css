@@ -1,0 +1,32 @@
+.kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+
+    gap: 16px;
+    min-width: 1000px
+    
+}
+
+.kanban-column {
+    min-width: 240px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.kanban-column_header {
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.kanban-column_body {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}

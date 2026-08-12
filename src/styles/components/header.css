@@ -1,0 +1,15 @@
+.app-header {
+    height: var(--header-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--header-padding);
+}
+
+.app-header_left, .app-header_right {
+    display: flex;
+    align-items: center;
+    gap: var(--header-item-gap);
+}

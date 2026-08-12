@@ -1,0 +1,25 @@
+.app-sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+
+   padding: var(--sidebar-padding);
+
+   display: flex;
+   flex-direction: column;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-nav_item {
+    min-height: var(--nav-item-height);
+
+    display: flex;
+    align-items: center;
+
+    padding: var(--nav-item-padding);
+    gap: var(--nav-item-gap);
+}

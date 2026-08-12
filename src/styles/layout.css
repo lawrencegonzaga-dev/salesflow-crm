@@ -133,6 +133,37 @@
     gap: 32px;
 }
 
+.settings-panel {
+    min-width: 0;
+}
+
+
+@media (max-width: 1024px) {
+    .app-layout {
+        grid-template-columns: 80px 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        display: block;
+    }
+
+    .app-sidebar {
+        display: none;
+    }
+
+    .app-header {
+        height: 56px;
+    }
+
+    .app-main {
+        padding: 16px;
+    }
+}
+
+
+
 
 
 

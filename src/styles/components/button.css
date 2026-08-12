@@ -1,0 +1,22 @@
+.button {
+    height: 48px;
+    padding-inline: 48px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}  
+
+.button--sm {
+    height: 32px;
+    padding-inline: 12px;
+    font-size: 13px;
+
+}
+
+.buton--lg {
+    height: 48px;
+    padding-inline: 20px;
+    font-size: 20px;
+}

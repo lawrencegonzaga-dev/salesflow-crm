@@ -1,0 +1,16 @@
+.modal {
+    width: min(100% - 32px, 480px);
+
+    padding: 24px;
+    border-radius: 8px;
+}
+
+.modal_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+    margin-top: 24px;
+}
+

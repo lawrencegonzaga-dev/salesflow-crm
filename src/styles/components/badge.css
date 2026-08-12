@@ -1,0 +1,35 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 24px;
+
+    padding-inline: 8px;
+    font-size: 12px;
+    font-weight: 500;
+
+    border-radius: 9999%;
+}
+
+.badge--success {
+    /* green success styling */
+}
+
+.badge--warning {
+    /* yellow warning styling */
+}
+
+.badge--danger {
+    /* red danger styling */
+}
+
+.badge--neutral {
+    /* neutral styling 
+Lead        → neutral
+Prospect    → warning
+Customer    → success
+Lost        → danger
+Won         → success
+    
+    */
+}

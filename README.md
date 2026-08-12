@@ -1,21 +1,214 @@
-<<<<<<< HEAD
-# React + Vite
+# SalesFlow — CSS & Application Architecture
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```text
+SalesFlow
+│
+├── Foundation
+│   ├── Reset
+│   ├── Base
+│   ├── Variables
+│   ├── Spacing
+│   ├── Typography
+│   ├── Colors
+│   ├── Radius
+│   └── Shadows
+│
+├── Application Layout
+│   ├── Sidebar
+│   ├── Header
+│   └── Main
+│
+├── Page Layouts
+│   ├── Dashboard
+│   ├── Contacts
+│   ├── Leads
+│   ├── Deals
+│   ├── Tasks
+│   ├── Calendar
+│   ├── Reports
+│   └── Settings
+│
+└── Components
+    ├── Sidebar
+    ├── Header
+    ├── Toolbar
+    ├── Button
+    ├── Form
+    ├── Card
+    ├── Badge
+    ├── Table
+    ├── Modal
+    ├── Kanban
+    └── Calendar
+```
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 1. Foundation
 
-## React Compiler
+The **Foundation** layer contains the global rules and design tokens used throughout the application.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```text
+Foundation
+│
+├── Reset
+├── Base
+├── Variables
+├── Spacing
+├── Typography
+├── Colors
+├── Radius
+└── Shadows
+```
 
-## Expanding the ESLint configuration
+### Responsibilities
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# salesflow-crm
-A responsive customer and sales management CRM built with React.
->>>>>>> cc35566e35c14433f37c942dc870a02fe9529bcc
+| Area       | Purpose                                         |
+| ---------- | ----------------------------------------------- |
+| Reset      | Removes browser default styles                  |
+| Base       | Defines global HTML/body styles                 |
+| Variables  | Stores reusable design values                   |
+| Spacing    | Defines the spacing system                      |
+| Typography | Defines fonts, sizes, weights, and line heights |
+| Colors     | Defines the application's color system          |
+| Radius     | Defines border-radius values                    |
+| Shadows    | Defines reusable shadow values                  |
+
+---
+
+## 2. Application Layout
+
+The **Application Layout** controls the overall structure of SalesFlow.
+
+```text
+Application Layout
+│
+├── Sidebar
+├── Header
+└── Main
+```
+
+These elements establish the main application shell that surrounds the individual pages.
+
+---
+
+## 3. Page Layouts
+
+The **Page Layouts** layer contains the structure specific to each major SalesFlow page.
+
+```text
+Page Layouts
+│
+├── Dashboard
+├── Contacts
+├── Leads
+├── Deals
+├── Tasks
+├── Calendar
+├── Reports
+└── Settings
+```
+
+Each page can compose reusable components from the **Components** layer.
+
+---
+
+## 4. Components
+
+The **Components** layer contains reusable UI components used throughout the application.
+
+```text
+Components
+│
+├── Sidebar
+├── Header
+├── Toolbar
+├── Button
+├── Form
+├── Card
+├── Badge
+├── Table
+├── Modal
+├── Kanban
+└── Calendar
+```
+
+### Component Responsibilities
+
+| Component | Purpose                                            |
+| --------- | -------------------------------------------------- |
+| Sidebar   | Application navigation                             |
+| Header    | Application-level controls and information         |
+| Toolbar   | Page-level actions, search, filtering, and sorting |
+| Button    | User actions                                       |
+| Form      | User input and data submission                     |
+| Card      | Grouping related content                           |
+| Badge     | Status and category indicators                     |
+| Table     | Structured data presentation                       |
+| Modal     | Dialogs and focused interactions                   |
+| Kanban    | Visual workflow management                         |
+| Calendar  | Date and schedule management                       |
+
+---
+
+# Architecture Overview
+
+```text
+                    SALESFLOW
+                        │
+        ┌───────────────┼────────────────┐
+        │               │                │
+        ▼               ▼                ▼
+   Foundation     Application       Components
+                   Layout
+        │               │                │
+        │               │                ├── Button
+        │               │                ├── Form
+        │               │                ├── Card
+        │               │                ├── Table
+        │               │                ├── Modal
+        │               │                └── ...
+        │               │
+        │               ├── Sidebar
+        │               ├── Header
+        │               └── Main
+        │
+        └───────────────┐
+                        ▼
+                  Page Layouts
+                        │
+        ┌───────────────┼───────────────┐
+        ▼               ▼               ▼
+    Dashboard       Contacts          Leads
+        │               │               │
+        └───────────────┴───────────────┘
+                        │
+                        ▼
+                 Reusable Components
+```
+
+---
+
+## Architecture Rule
+
+The general responsibility of each layer is:
+
+```text
+Foundation
+    ↓
+Defines the visual system
+
+Application Layout
+    ↓
+Defines the application shell
+
+Page Layouts
+    ↓
+Defines page-specific structure
+
+Components
+    ↓
+Provides reusable UI
+```
+
+The goal is to keep **global styles, application structure, page structure, and reusable UI components separated** so the SalesFlow codebase remains organized as the application grows.

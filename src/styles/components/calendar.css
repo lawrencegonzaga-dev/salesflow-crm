@@ -1,0 +1,58 @@
+.calendar {
+    width: 100%;
+    min-width: 700px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendar_header {
+    min-height: 48px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    border: 1px solid #e5e7eb;
+}
+
+.calendar_day-name {
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.calendar_day-name {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-inline: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.calendar_grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+}
+
+.calendar_day {
+    min-height: 100px;
+    padding: 8px;
+
+    border-right: 1px solid #e5e7eb;
+    border-left: 1px solid #e5e7eb;
+}
+
+.calendar_date {
+    font-size: 14px;
+}
+

@@ -1,0 +1,19 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td{
+height: 48px;
+padding-inline: 16px;
+text-align: left;   
+}
+
+.table th {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.table td{
+    font-size:14px;
+}
