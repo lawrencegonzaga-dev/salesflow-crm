@@ -1,6 +1,6 @@
 
 
-function contactCard ({contact} ) {
+function ContactCard ({contact} ) {
     return(
         <article className="contact-card">
             <h3>{contact.name}</h3>
@@ -9,4 +9,4 @@ function contactCard ({contact} ) {
     );
 }
 
-export default contactCard;
+export default ContactCard;

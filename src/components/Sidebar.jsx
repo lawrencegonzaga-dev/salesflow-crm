@@ -1,18 +1,22 @@
 import { NavLink } from "react-router-dom";
-import navigation  from "../data/navigation";
+import navigation from "../data/navigation";
 
-function Sidebar () {
+function Sidebar() {
     return (
-
         <aside className="app-sidebar">
             <h2>SalesFlow</h2>
 
-        <nav>
-            {navigation.map((item) => (
-                <NavLink key={item.path} to={item.path}>{item.label}</NavLink>
-         
-        ))}
-        </nav>
+            <nav className="sidebar-nav"> 
+                {navigation.map((item) => (
+                    <NavLink
+                        key={item.path}
+                        to={item.path}
+                          className="sidebar-nav_item"
+                    >
+                        {item.label}
+                    </NavLink>
+                ))}
+            </nav>
         </aside>
     );
 }
