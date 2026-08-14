@@ -1,7 +1,7 @@
 import ContactRow from "./ContactRow";
 
 
-function ContactTable ({contacts}) {
+function ContactTable ({contacts, onDeleteContact, onEditContact}) {
     return (
             <table>
                 <thead>
@@ -10,13 +10,16 @@ function ContactTable ({contacts}) {
                     <th>Company</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Action</th>
                 </tr>
-                </thead>
+                </thead> 
                 <tbody>
                     {contacts.map((contact)=> (
                         <ContactRow 
                          key={contact.id}
                          contact={contact}
+                         onDeleteContact={onDeleteContact}
+                         onEditContact={onEditContact}
                         />
                     ))}
                 </tbody>
