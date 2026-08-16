@@ -1,15 +1,41 @@
 .page-toolbar {
-    min-height: 40px;
+  min-height: 40px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    gap: 16px;
+  gap: 16px;
 }
 
-.page-toolbar_left, .page-toolbar_right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.page-toolbar_left,
+.page-toolbar_right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+/* Contacts.jsx / Leads.jsx render className="toolbar", not "page-toolbar" —
+   keeping both until the components are unified onto one name. */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolbar input {
+  flex: 1 1 260px;
+}
+
+.toolbar select {
+  flex: 0 1 190px;
+}
+
+@media (max-width: 768px) {
+  .toolbar > div,
+  .toolbar input,
+  .toolbar select {
+    flex: 1 1 100%;
+  }
+}
+/* toolbar.css */

@@ -1,0 +1,5 @@
+function ReportFilters({ reportType, startDate, endDate, onReportTypeChange, onStartDateChange, onEndDateChange }) {
+    return <section className="card"><div className="report-filters"><label htmlFor="report-type"><span>Report type</span><select id="report-type" value={reportType} onChange={(event) => onReportTypeChange(event.target.value)}><option value="All">All reports</option><option value="Sales">Sales summary</option><option value="Leads">Lead analysis</option><option value="Deals">Deal analysis</option><option value="Tasks">Task analysis</option></select></label><label htmlFor="report-start"><span>From</span><input id="report-start" type="date" value={startDate} onChange={(event) => onStartDateChange(event.target.value)} /></label><label htmlFor="report-end"><span>To</span><input id="report-end" type="date" value={endDate} onChange={(event) => onEndDateChange(event.target.value)} /></label></div><p className="body-text">Date range filters deals by close date and tasks by due date.</p></section>;
+}
+
+export default ReportFilters;

@@ -1,0 +1,42 @@
+import { useMemo, useState } from "react";
+import RecordForm from "../components/RecordForm";
+import { useCRM } from "../context/CRMContext";
+
+const stages = ["New", "Qualified", "Proposal", "Negotiation", "Won", "Lost"];
+const fields = [
+    { name: "name", label: "Deal name", required: true },
+    { name: "company", label: "Company", required: true },
+    { name: "value", label: "Value", type: "number", min: "0", required: true },
+    { name: "stage", label: "Stage", options: stages, defaultValue: "New" },
+    { name: "closeDate", label: "Expected close date", type: "date", required: true }
+];
+
+function Deals() {
+    const { deals, saveRecord, deleteRecord } = useCRM();
+    const [editingDeal, setEditingDeal] = useState(null);
+    const [showForm, setShowForm] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [stageFilter, setStageFilter] = useState("All");
+    const [sortBy, setSortBy] = useState("name-asc");
+    const visibleDeals = useMemo(() => {
+        const search = searchTerm.trim().toLowerCase(); const [field, direction] = sortBy.split("-");
+        return deals.filter((deal) => stageFilter === "All" || deal.stage === stageFilter).filter((deal) => [deal.name, deal.company, deal.stage, deal.closeDate, deal.value].some((value) => String(value ?? "").toLowerCase().includes(search))).toSorted((first, second) => {
+            const comparison = field === "value" ? Number(first.value || 0) - Number(second.value || 0) : String(first[field] ?? "").localeCompare(String(second[field] ?? ""));
+            return direction === "asc" ? comparison : -comparison;
+        });
+    }, [deals, searchTerm, stageFilter, sortBy]);
+    function openNewDeal() { setEditingDeal(null); setShowForm(true); }
+    function openEditDeal(deal) { setEditingDeal(deal); setShowForm(true); }
+    function closeForm() { setEditingDeal(null); setShowForm(false); }
+    function saveDeal(deal) { saveRecord("deals", { ...deal, value: Number(deal.value) || 0 }); closeForm(); }
+    function deleteDeal(id) { if (window.confirm("Delete this deal? This cannot be undone.")) { deleteRecord("deals", id); if (editingDeal?.id === id) closeForm(); } }
+    function moveDeal(deal, offset) { const nextStage = stages[stages.indexOf(deal.stage) + offset]; if (nextStage) saveRecord("deals", { ...deal, stage: nextStage }); }
+    return <section className="page deals-content">
+        <header className="page-header"><div><h1 className="page-title">Deals</h1><p className="body-text">Track opportunities as they progress through your pipeline.</p></div><button className="button button--primary" type="button" onClick={openNewDeal}>+ Add Deal</button></header>
+        {showForm && <section className="card"><div className="card_header"><div><h2 className="card-title">{editingDeal ? "Edit Deal" : "Add Deal"}</h2><p className="body-text">{editingDeal ? "Update deal details or its pipeline stage." : "Create a new sales opportunity."}</p></div><button type="button" onClick={closeForm}>Close</button></div><RecordForm key={editingDeal?.id ?? "new"} fields={fields} record={editingDeal} submitLabel={editingDeal ? "Update Deal" : "Create Deal"} onSave={saveDeal} onCancel={closeForm} /></section>}
+        <section className="card"><div className="toolbar"><div className="search-field"><label htmlFor="deal-search">Search</label><input id="deal-search" type="text" placeholder="Search deals..." value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} /></div><div><label htmlFor="deal-stage">Stage</label><select id="deal-stage" value={stageFilter} onChange={(event) => setStageFilter(event.target.value)}><option value="All">All stages</option>{stages.map((stage) => <option key={stage} value={stage}>{stage}</option>)}</select></div><div><label htmlFor="deal-sort">Sort</label><select id="deal-sort" value={sortBy} onChange={(event) => setSortBy(event.target.value)}><option value="name-asc">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="company-asc">Company: A–Z</option><option value="company-desc">Company: Z–A</option><option value="value-desc">Value: high to low</option><option value="value-asc">Value: low to high</option><option value="closeDate-asc">Close date: earliest</option><option value="closeDate-desc">Close date: latest</option></select></div></div></section>
+        <div className="kanban-board" aria-label="Deals pipeline">{stages.map((stage) => { const stageDeals = visibleDeals.filter((deal) => deal.stage === stage); return <section className="kanban-column" key={stage}><header className="kanban-column_header"><h2>{stage}</h2><span className="badge">{stageDeals.length}</span></header><div className="kanban-column_body">{stageDeals.map((deal) => <article className="deal-card" key={deal.id}><h3>{deal.name}</h3><p>{deal.company}</p><strong>{Number(deal.value || 0).toLocaleString(undefined, { style: "currency", currency: "USD" })}</strong><small>Close {deal.closeDate || "not set"}</small><div className="row-actions"><button type="button" onClick={() => openEditDeal(deal)}>Edit</button><button type="button" onClick={() => moveDeal(deal, -1)} disabled={stage === stages[0]} aria-label={`Move ${deal.name} to previous stage`}>←</button><button type="button" onClick={() => moveDeal(deal, 1)} disabled={stage === stages.at(-1)} aria-label={`Move ${deal.name} to next stage`}>→</button><button type="button" className="button--danger" onClick={() => deleteDeal(deal.id)}>Delete</button></div></article>)}{stageDeals.length === 0 && <p className="kanban-empty">No deals</p>}</div></section>; })}</div>
+    </section>;
+}
+
+export default Deals;

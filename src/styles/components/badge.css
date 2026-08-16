@@ -1,35 +1,42 @@
 .badge {
-    display: inline-flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
 
-    min-height: 24px;
+  min-height: 24px;
 
-    padding-inline: 8px;
-    font-size: 12px;
-    font-weight: 500;
+  padding-inline: 8px;
+  font-size: 12px;
+  font-weight: 500;
 
-    border-radius: 9999%;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
 }
 
 .badge--success {
-    /* green success styling */
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 12%, transparent);
 }
 
 .badge--warning {
-    /* yellow warning styling */
+  color: var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 16%, transparent);
 }
 
 .badge--danger {
-    /* red danger styling */
+  color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 12%, transparent);
 }
 
 .badge--neutral {
-    /* neutral styling 
+  color: var(--color-text-muted);
+  background: var(--color-surface-muted);
+}
+
+/*
 Lead        → neutral
 Prospect    → warning
 Customer    → success
 Lost        → danger
 Won         → success
-    
-    */
-}
+*/
+/* badge.css */

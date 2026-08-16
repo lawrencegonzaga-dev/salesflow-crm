@@ -1,22 +1,73 @@
+button,
 .button {
-    height: 48px;
-    padding-inline: 48px;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 32px;
+  height: var(--button-height);
+  padding-inline: 16px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+button:hover,
+.button:hover {
+  border-color: var(--color-action);
+  color: var(--color-action);
+}
+
+button:active,
+.button:active {
+  transform: translateY(1px);
+}
+
+button:disabled,
+.button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button--primary {
+  color: #fff;
+  background: var(--color-action);
+  border-color: var(--color-action);
+}
+
+.button--primary:hover {
+  background: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+  color: #fff;
+}
+
+.button--danger {
+  color: var(--color-danger);
+}
+
+.button--danger:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
 
 .button--sm {
-    height: 32px;
-    padding-inline: 12px;
-    font-size: 13px;
-
+  height: 32px;
+  padding-inline: 12px;
+  font-size: 13px;
 }
 
-.buton--lg {
-    height: 48px;
-    padding-inline: 20px;
-    font-size: 20px;
+.button--lg {
+  height: 48px;
+  padding-inline: 20px;
+  font-size: 16px;
 }
+/* button.css */
