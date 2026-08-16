@@ -10,6 +10,7 @@ import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import AppLayout from "./layouts/AppLayout";
 
+
 function App() {
     return (
         <BrowserRouter>
