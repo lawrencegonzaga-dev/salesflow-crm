@@ -1,3 +1,7 @@
+/* ========================================================= */
+/* FILE: src/layouts/AppLayout.jsx */
+/* ========================================================= */
+
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
@@ -9,7 +13,6 @@ function AppLayout() {
 
     return (
         <div className="app-layout">
-
             <Sidebar
                 isOpen={isNavigationOpen}
                 onNavigate={() => setIsNavigationOpen(false)}
@@ -21,7 +24,7 @@ function AppLayout() {
             />
 
             <main className="app-main">
-                <div className="app-main_content">
+                <div className="app-main-content">
                     <Outlet />
                 </div>
             </main>
@@ -34,7 +37,6 @@ function AppLayout() {
                     onClick={() => setIsNavigationOpen(false)}
                 />
             )}
-
         </div>
     );
 }

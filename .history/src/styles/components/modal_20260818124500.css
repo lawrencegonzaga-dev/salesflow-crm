@@ -1,0 +1,220 @@
+/* ========================================================= */
+/* FILE: src/styles/components/modal.css */
+/* ========================================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  animation: overlay-fade-in var(--transition-base);
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  width: min(100% - var(--space-8), 520px);
+  max-height: min(90vh, 640px);
+  overflow-y: auto;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  animation: modal-slide-up var(--transition-base);
+}
+
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================================
+   MODAL SIZES
+   ================================ */
+
+.modal--sm {
+  width: min(100% - var(--space-8), 400px);
+}
+
+.modal--lg {
+  width: min(100% - var(--space-8), 680px);
+}
+
+.modal--xl {
+  width: min(100% - var(--space-8), 900px);
+}
+
+.modal--full {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  padding: var(--space-8);
+}
+
+/* ================================
+   MODAL HEADER
+   ================================ */
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.modal-header h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.modal-header .modal-close {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header .modal-close:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+/* ================================
+   MODAL BODY
+   ================================ */
+
+.modal-body {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* ================================
+   MODAL FOOTER
+   ================================ */
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ================================
+   SCROLLBAR FOR MODAL
+   ================================ */
+
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+.form-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgb(0 0 0 / 50%);
+
+  z-index: 1000;
+}
+
+.form-card {
+  width: min(100%, 600px);
+  max-height: calc(100vh - 48px);
+
+  overflow-y: auto;
+
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+}
+
+.form-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.form-card__title {
+  margin: 0;
+}
+
+.form-card__subtitle {
+  margin: 4px 0 0;
+}
+
+.form-card__close {
+  display: grid;
+  place-items: center;
+
+  min-width: 36px;
+  min-height: 36px;
+
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.form-card__close:hover {
+  background: var(--color-surface-muted);
+}
+
+/* modal.css */

@@ -1,0 +1,136 @@
+/* Canonical kanban board + deal card styles.
+   This file is the single source of truth for these selectors —
+   they were previously duplicated (with conflicting values) in
+   the page-specific stylesheet. */
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+
+  width: 100%;
+  min-width: 1360px;
+  
+
+  padding-bottom: 8px;
+}
+
+.kanban-column {
+  min-width: 0px;
+  padding: 12px;
+
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+}
+
+.kanban-column_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.kanban-column_header h2 {
+  margin: 0;
+  font-size: var(--text-base);
+}
+
+.kanban-column_body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  min-height: 120px;
+}
+
+.deal-card {
+  display: grid;
+  gap: 8px;
+
+  padding: 16px;
+
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  transition: box-shadow var(--transition-fast);
+}
+
+.deal-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.deal-card h3 {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+.deal-card p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.deal-card strong {
+  margin-top: 4px;
+  color: var(--color-action);
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+
+.deal-card small {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.deal-card .row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 6px;
+}
+
+.deal-card .row-actions button {
+  min-height: 36px;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.deal-card .button--danger {
+  color: var(--color-danger);
+}
+
+.kanban-empty {
+  margin: 8px 0;
+
+  padding: 20px;
+
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    grid-template-columns: repeat(6, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .kanban-column {
+    min-width: 220px;
+  }
+
+  .deal-card {
+    padding: 14px;
+  }
+}
