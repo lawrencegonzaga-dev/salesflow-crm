@@ -1,4 +1,10 @@
+import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
+
 function StatCard({ label, value, detail, trend }) {
+    const TrendIcon = trend?.direction === "up"
+        ? FaArrowTrendUp
+        : FaArrowTrendDown;
+
     return (
         <article className="stat-card">
             <span>{label}</span>
@@ -7,7 +13,7 @@ function StatCard({ label, value, detail, trend }) {
                 <small>{detail}</small>
                 {trend && (
                     <span className={`stat-change stat-change--${trend.direction === "up" ? "positive" : "negative"}`}>
-                        {trend.direction === "up" ? "▲" : "▼"} {trend.value}%
+                        <TrendIcon aria-hidden="true" /> {trend.value}%
                     </span>
                 )}
             </div>

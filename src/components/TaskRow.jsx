@@ -1,4 +1,6 @@
-function TaskRow({ task, dateGroup, onEdit, onDelete, onComplete }) {
+import UserAvatar from "./UserAvatar";
+
+function TaskRow({ task, user, dateGroup, onEdit, onComplete }) {
     return (
         <tr>
             <td>
@@ -11,7 +13,12 @@ function TaskRow({ task, dateGroup, onEdit, onDelete, onComplete }) {
                 )}
             </td>
 
-            <td>{task.assignedTo}</td>
+            <td>
+                <span className="task-assignee">
+                    <UserAvatar user={user} name={task.assignedTo} />
+                    <span>{user?.name || task.assignedTo || "Unassigned"}</span>
+                </span>
+            </td>
 
             <td>
                 <span

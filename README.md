@@ -212,3 +212,116 @@ Provides reusable UI
 ```
 
 The goal is to keep **global styles, application structure, page structure, and reusable UI components separated** so the SalesFlow codebase remains organized as the application grows.
+
+
+Yes. Based on what we've established for your CRM, the **pipeline and rules** should be:
+
+### Lead Pipeline
+
+```text
+NEW → CONTACTED → QUALIFIED
+                  │
+                  ▼
+              CONVERTED
+                  │
+                  ▼
+            DEAL: QUALIFIED
+```
+
+#### Lead rules
+
+| Stage         | Meaning                          | Allowed action                    |
+| ------------- | -------------------------------- | --------------------------------- |
+| **New**       | Newly captured lead              | Move → Contacted                  |
+| **Contacted** | You've reached/contacted them    | Move → Qualified                  |
+| **Qualified** | Lead is a real sales opportunity | **Convert to Deal**               |
+| **Rejected**  | Lead isn't worth pursuing        | Move to Rejected                  |
+| **Converted** | Lead has become a Deal           | No longer active in Lead pipeline |
+
+The important distinction is:
+
+> **Converting a Lead does NOT create a Deal at `New`. It creates the Deal at `Qualified`.**
+
+So:
+
+```text
+Lead
+  New
+   ↓
+  Contacted
+   ↓
+  Qualified
+   ↓
+  [Convert to Deal]
+   ↓
+Deal
+  Qualified
+   ↓
+  Proposal
+   ↓
+  Negotiation
+   ├──→ Won
+   └──→ Lost
+```
+
+### Deal Pipeline
+
+```text
+QUALIFIED → PROPOSAL → NEGOTIATION
+                          ├──→ WON
+                          └──→ LOST
+```
+
+And **Won/Lost are terminal**.
+
+So the system should **not** mix these two pipelines:
+
+```text
+LEAD PIPELINE
+New → Contacted → Qualified → Convert
+
+DEAL PIPELINE
+Qualified → Proposal → Negotiation → Won/Lost
+```
+
+### What happens to the Contact?
+
+When the Lead is created, the Contact is already created as:
+
+```text
+Contact
+status: Prospect
+```
+
+When the Lead is converted into a Deal, you **don't create another Contact**.
+
+The existing Prospect remains the same person/company, while the Deal represents the sales opportunity.
+
+Then when the Deal reaches **Won**, that's when the Contact can become:
+
+```text
+Customer
+```
+
+So the overall relationship is:
+
+```text
+Contact
+  │
+  ├── Prospect
+  │
+  └── Lead
+       │
+       └── Qualified
+            │
+            ▼
+          Deal
+            │
+            ├── Qualified
+            ├── Proposal
+            ├── Negotiation
+            │     ├── Won → Contact becomes Customer
+            │     └── Lost
+```
+
+**Rejected** is a Lead outcome, while **Lost** is a Deal outcome. That's an important distinction for making the CRM feel reasonable rather than like one giant pipeline.

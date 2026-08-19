@@ -51,3 +51,9 @@
   background: var(--color-action);
   color: white;
 }
+
+.sidebar-nav_icon {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+}

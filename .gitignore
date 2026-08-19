@@ -157,6 +157,14 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
+# Agent instructions
+.Agent.md
+
+# Documentation
+docs/
+
+.history/
+
 # Vite files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*

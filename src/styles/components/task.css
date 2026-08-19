@@ -1,0 +1,271 @@
+.task-pipeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 4px 0 20px;
+  box-sizing: border-box;
+}
+
+.task-pipeline__stage {
+  min-width: 260px;
+  padding: 12px;
+  box-sizing: border-box;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    opacity var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.task-pipeline__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.task-pipeline__header h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.task-pipeline__header span {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  font-size: 12px;
+}
+
+.task-pipeline__items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.task-pipeline__card {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: inherit;
+  cursor: grab;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.task-pipeline__card:hover {
+  border-color: var(--color-action);
+}
+
+.task-pipeline__card:active {
+  cursor: grabbing;
+}
+
+.task-pipeline__edit {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: normal;
+  overflow: visible;
+}
+
+.task-pipeline__edit:hover {
+  background: transparent;
+}
+
+.task-pipeline__edit:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: -2px;
+}
+
+.task-pipeline__edit h3 {
+  width: 100%;
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.task-pipeline__edit p {
+  width: 100%;
+  margin: 6px 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.task-pipeline__description {
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.task-pipeline__assigned {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px !important;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.task-assignee {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.task-pipeline__card--dragging {
+  opacity: 0.45;
+  cursor: grabbing;
+  transform: rotate(1deg);
+}
+
+.task-pipeline__stage--current {
+  border-style: solid;
+  opacity: 1;
+}
+
+.task-pipeline__stage--drop-target {
+  border: 2px dashed var(--color-action);
+  background: color-mix(
+    in srgb,
+    var(--color-action) 5%,
+    var(--color-surface-muted)
+  );
+  opacity: 1;
+  box-shadow: 0 0 0 1px color-mix(
+    in srgb,
+    var(--color-action) 8%,
+    transparent
+  );
+}
+
+.task-pipeline__stage--muted {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.task-pipeline__stage--muted .task-pipeline__items {
+  pointer-events: none;
+}
+
+.task-pipeline__empty {
+  margin: 20px 0;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ========================================================= */
+/* TASK PIPELINE PAGINATION */
+/* ========================================================= */
+
+.task-pipeline__pagination {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-top: 12px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid var(--color-border);
+}
+
+.task-pipeline__pagination-info {
+  color: var(--color-text-muted);
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.task-pipeline__pagination-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.task-pipeline__pagination-actions button {
+  min-width: 30px;
+}
+
+.task-pipeline__pagination-actions button:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+.task-pipeline__page {
+  color: var(--color-text-muted);
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .task-pipeline {
+    grid-template-columns: repeat(3, minmax(240px, 280px));
+    gap: 12px;
+  }
+  .task-pipeline__stage {
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-pipeline {
+    grid-template-columns: repeat(3, minmax(220px, 260px));
+  }
+  .task-pipeline__stage {
+    min-width: 220px;
+  }
+  .task-pipeline__edit {
+    padding: 10px;
+  }
+}

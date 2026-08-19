@@ -1,47 +1,54 @@
-/* ========================================================= */
-/* FILE: src/data/navigation.js */
-/* ========================================================= */
+import {
+    FaAddressBook,
+    FaBullseye,
+    FaCalendarDays,
+    FaChartColumn,
+    FaGear,
+    FaHandshake,
+    FaHouse,
+    FaListCheck,
+} from "react-icons/fa6";
 
 const navigation = [
     {
         label: "Dashboard",
         path: "/dashboard",
-        icon: "📊"
+        icon: FaHouse,
     },
     {
         label: "Contacts",
         path: "/contacts",
-        icon: "👤"
+        icon: FaAddressBook,
     },
     {
         label: "Leads",
         path: "/leads",
-        icon: "🎯"
+        icon: FaBullseye,
     },
     {
         label: "Deals",
         path: "/deals",
-        icon: "💼"
+        icon: FaHandshake,
     },
     {
         label: "Tasks",
         path: "/tasks",
-        icon: "✅"
+        icon: FaListCheck,
     },
     {
         label: "Calendar",
         path: "/calendar",
-        icon: "📅"
+        icon: FaCalendarDays,
     },
     {
         label: "Reports",
         path: "/reports",
-        icon: "📈"
+        icon: FaChartColumn,
     },
     {
         label: "Settings",
         path: "/settings",
-        icon: "⚙️"
+        icon: FaGear,
     }
 ];
 

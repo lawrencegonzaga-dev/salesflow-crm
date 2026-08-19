@@ -7,16 +7,21 @@ function Sidebar({ isOpen, onNavigate }) {
             <h2>SalesFlow</h2>
 
             <nav className="sidebar-nav"> 
-                {navigation.map((item) => (
-                    <NavLink
-                        key={item.path}
-                        to={item.path}
-                        className="sidebar-nav_item"
-                        onClick={onNavigate}
-                    >
-                        {item.label}
-                    </NavLink>
-                ))}
+                {navigation.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            className="sidebar-nav_item"
+                            onClick={onNavigate}
+                        >
+                            <Icon className="sidebar-nav_icon" aria-hidden="true" />
+                            <span>{item.label}</span>
+                        </NavLink>
+                    );
+                })}
             </nav>
         </aside>
     );

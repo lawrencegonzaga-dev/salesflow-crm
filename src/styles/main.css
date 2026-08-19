@@ -3,6 +3,8 @@
 @import "./base.css";
 @import "./layout.css";
 @import "./utilities.css";
+@import "./crm.css";
+
 
 @import "./components/sidebar.css";
 @import "./components/header.css";
@@ -18,6 +20,8 @@
 @import "./components/leads.css";
 @import "./components/tab.css";
 @import "./components/pagination.css";
-@import "./crm.css";
+@import "./components/task.css";
+@import "./components/deals.css";
+
 
 /* main.css */

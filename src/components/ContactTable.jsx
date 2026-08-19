@@ -12,7 +12,6 @@ function ContactTable({
     if (contacts.length === 0) {
         return (
             <div className="table-empty">
-                <div className="empty-icon">📭</div>
                 <div className="empty-title">No contacts found</div>
                 <div className="empty-description">
                     Try adjusting your search or filters

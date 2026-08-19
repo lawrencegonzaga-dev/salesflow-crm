@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CalendarHeader from "../components/CalendarHeader";
 import CalendarGrid from "../components/CalendarGrid";
 import CalendarForm from "../components/CalendarForm";
 import { useCRM } from "../context/CRMContext";
 
 function Calendar() {
+  const navigate = useNavigate();
   const { tasks = [], deals = [], events = [], saveRecord, deleteRecord } = useCRM();
 
   const [month, setMonth] = useState(() => {
@@ -41,7 +43,7 @@ function Calendar() {
   }
 
   return (
-    <section className="calendar-page">
+    <section className="page calendar-page">
       <CalendarHeader
         month={month}
         onPrevious={() => setMonth((value) => new Date(value.getFullYear(), value.getMonth() - 1, 1))}
@@ -116,6 +118,9 @@ function Calendar() {
           setShowForm(true);
         }}
         onDeleteEvent={deleteEvent}
+        onOpenItem={(item) =>
+          navigate(item.type === "Task" ? "/tasks" : "/deals")
+        }
       />
     </section>
   );

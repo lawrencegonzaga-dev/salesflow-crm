@@ -11,16 +11,37 @@ import {
 } from "react";
 
 const CRMContext = createContext(null);
-
 const STORAGE_KEY = "salesflow-crm-data";
 
-/*
- * =========================================================
- * INITIAL DATA
- * =========================================================
- */
+/* ========================================================= */
+/* INITIAL DATA */
+/* ========================================================= */
 
 const initialData = {
+    users: [
+        {
+            id: "user-1",
+            name: "Lawrence",
+            email: "lawrence@salesflow.com",
+            role: "Sales Manager",
+            avatar: "LA",
+        },
+        {
+            id: "user-2",
+            name: "Mia Santos",
+            email: "mia@salesflow.com",
+            role: "Sales Representative",
+            avatar: "MS",
+        },
+        {
+            id: "user-3",
+            name: "Ben Cruz",
+            email: "ben@salesflow.com",
+            role: "Account Executive",
+            avatar: "BC",
+        },
+    ],
+
     contacts: [
         {
             id: "contact-1",
@@ -171,27 +192,66 @@ const initialData = {
 
         preferences: {
             theme: "System",
-            notifications: true,
+            notifications: {
+                enabled: true,
+                email: true,
+                tasks: true,
+                deals: true,
+                leads: false,
+            },
             defaultView: "Dashboard",
         },
     },
 };
 
-/*
- * =========================================================
- * CLONE DEMO DATA
- * =========================================================
- */
+/* ========================================================= */
+/* CLONE DEMO DATA */
+/* ========================================================= */
 
 function cloneDemoData() {
     return JSON.parse(JSON.stringify(initialData));
 }
 
-/*
- * =========================================================
- * LOAD LOCAL STORAGE
- * =========================================================
- */
+function mergeSettings(defaultSettings, savedSettings) {
+    if (!savedSettings || typeof savedSettings !== "object") {
+        return defaultSettings;
+    }
+
+    const savedNotifications =
+        savedSettings.preferences?.notifications;
+    const defaultNotifications =
+        defaultSettings.preferences.notifications;
+
+    const notifications =
+        savedNotifications && typeof savedNotifications === "object"
+            ? {
+                  ...defaultNotifications,
+                  ...savedNotifications,
+              }
+            : {
+                  ...defaultNotifications,
+                  enabled:
+                      typeof savedNotifications === "boolean"
+                          ? savedNotifications
+                          : defaultNotifications.enabled,
+              };
+
+    return {
+        profile: {
+            ...defaultSettings.profile,
+            ...savedSettings.profile,
+        },
+        preferences: {
+            ...defaultSettings.preferences,
+            ...savedSettings.preferences,
+            notifications,
+        },
+    };
+}
+
+/* ========================================================= */
+/* LOAD LOCAL STORAGE */
+/* ========================================================= */
 
 function loadStoredData() {
     const demoData = cloneDemoData();
@@ -201,22 +261,19 @@ function loadStoredData() {
     }
 
     try {
-        const storedValue =
-            window.localStorage.getItem(STORAGE_KEY);
+        const storedValue = window.localStorage.getItem(STORAGE_KEY);
+        const savedData = storedValue ? JSON.parse(storedValue) : null;
 
-        const savedData = storedValue
-            ? JSON.parse(storedValue)
-            : null;
-
-        if (
-            !savedData ||
-            typeof savedData !== "object"
-        ) {
+        if (!savedData || typeof savedData !== "object") {
             return demoData;
         }
 
         return {
             ...demoData,
+
+            users: Array.isArray(savedData.users)
+                ? savedData.users
+                : demoData.users,
 
             contacts: Array.isArray(savedData.contacts)
                 ? savedData.contacts
@@ -238,37 +295,20 @@ function loadStoredData() {
                 ? savedData.events
                 : demoData.events,
 
-            settings:
-                savedData.settings &&
-                typeof savedData.settings === "object"
-                    ? {
-                          profile: {
-                              ...demoData.settings.profile,
-                              ...savedData.settings
-                                  .profile,
-                          },
-
-                          preferences: {
-                              ...demoData.settings
-                                  .preferences,
-                              ...savedData.settings
-                                  .preferences,
-                          },
-                      }
-                    : demoData.settings,
+            settings: mergeSettings(
+                demoData.settings,
+                savedData.settings
+            ),
         };
     } catch {
         window.localStorage.removeItem(STORAGE_KEY);
-
         return demoData;
     }
 }
 
-/*
- * =========================================================
- * GENERATE ID
- * =========================================================
- */
+/* ========================================================= */
+/* GENERATE ID */
+/* ========================================================= */
 
 function makeId(type) {
     return `${type}-${Date.now()}-${Math.random()
@@ -276,20 +316,16 @@ function makeId(type) {
         .slice(2)}`;
 }
 
-/*
- * =========================================================
- * CRM PROVIDER
- * =========================================================
- */
+/* ========================================================= */
+/* CRM PROVIDER */
+/* ========================================================= */
 
 export function CRMProvider({ children }) {
     const [data, setData] = useState(loadStoredData);
 
-    /*
-     * =====================================================
-     * SAVE DATA TO LOCAL STORAGE
-     * =====================================================
-     */
+    /* ===================================================== */
+    /* SAVE DATA TO LOCAL STORAGE */
+    /* ===================================================== */
 
     useEffect(() => {
         try {
@@ -298,50 +334,34 @@ export function CRMProvider({ children }) {
                 JSON.stringify(data)
             );
         } catch {
-            /*
-             * The CRM continues to work even when
-             * localStorage is unavailable.
-             */
+            // CRM continues to work if localStorage is unavailable.
         }
     }, [data]);
 
-    /*
-     * =====================================================
-     * CONTEXT VALUE
-     * =====================================================
-     */
+    useEffect(() => {
+        const theme = data.settings.preferences.theme;
+
+        if (theme === "Dark") {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.removeAttribute("data-theme");
+        }
+    }, [data.settings.preferences.theme]);
+
+    /* ===================================================== */
+    /* CONTEXT VALUE */
+    /* ===================================================== */
 
     const value = useMemo(
         () => ({
             ...data,
 
-            /*
-             * =================================================
-             * SAVE RECORD
-             * =================================================
-             *
-             * If the record already has an ID:
-             *
-             *     UPDATE existing record
-             *
-             * If the record does not have an ID:
-             *
-             *     CREATE new record
-             *
-             * Every saved record also receives updatedAt.
-             */
-
             saveRecord(type, record) {
                 setData((currentData) => {
                     const hasId = Boolean(record.id);
+                    const now = new Date().toISOString();
 
-                    const now =
-                        new Date().toISOString();
-
-                    /*
-                     * Existing record
-                     */
-
+                    // Update existing record
                     if (hasId) {
                         const updatedRecord = {
                             ...record,
@@ -350,20 +370,15 @@ export function CRMProvider({ children }) {
 
                         return {
                             ...currentData,
-
-                            [type]: currentData[type].map(
-                                (item) =>
-                                    item.id === record.id
-                                        ? updatedRecord
-                                        : item
+                            [type]: currentData[type].map((item) =>
+                                item.id === record.id
+                                    ? updatedRecord
+                                    : item
                             ),
                         };
                     }
 
-                    /*
-                     * New record
-                     */
-
+                    // Create new record
                     const newRecord = {
                         ...record,
                         id: makeId(type),
@@ -372,7 +387,6 @@ export function CRMProvider({ children }) {
 
                     return {
                         ...currentData,
-
                         [type]: [
                             ...currentData[type],
                             newRecord,
@@ -381,27 +395,22 @@ export function CRMProvider({ children }) {
                 });
             },
 
-            /*
-             * =================================================
-             * DELETE RECORD
-             * =================================================
-             */
+            /* ================================================= */
+            /* DELETE RECORD */
+            /* ================================================= */
 
             deleteRecord(type, id) {
                 setData((currentData) => ({
                     ...currentData,
-
                     [type]: currentData[type].filter(
                         (item) => item.id !== id
                     ),
                 }));
             },
 
-            /*
-             * =================================================
-             * SAVE SETTINGS
-             * =================================================
-             */
+            /* ================================================= */
+            /* SAVE SETTINGS */
+            /* ================================================= */
 
             saveSettings(settings) {
                 setData((currentData) => ({
@@ -410,11 +419,9 @@ export function CRMProvider({ children }) {
                 }));
             },
 
-            /*
-             * =================================================
-             * RESET DEMO DATA
-             * =================================================
-             */
+            /* ================================================= */
+            /* RESET DEMO DATA */
+            /* ================================================= */
 
             resetDemoData() {
                 setData(cloneDemoData());
@@ -430,23 +437,18 @@ export function CRMProvider({ children }) {
     );
 }
 
-/*
- * =========================================================
- * USE CRM HOOK
- * =========================================================
- */
+/* ========================================================= */
+/* USE CRM HOOK */
+/* ========================================================= */
 
 // This hook intentionally shares the provider module's
 // context value.
 // eslint-disable-next-line react-refresh/only-export-components
-
 export function useCRM() {
     const context = useContext(CRMContext);
 
     if (!context) {
-        throw new Error(
-            "useCRM must be used inside CRMProvider"
-        );
+        throw new Error("useCRM must be used inside CRMProvider");
     }
 
     return context;

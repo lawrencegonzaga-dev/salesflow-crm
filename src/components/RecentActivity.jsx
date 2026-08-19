@@ -1,6 +1,11 @@
-/* ========================================================= */
-/* FILE: src/components/RecentActivity.jsx */
-/* ========================================================= */
+import {
+    FaBriefcase,
+    FaBullseye,
+    FaCalendarDays,
+    FaInbox,
+    FaListCheck,
+    FaThumbtack,
+} from "react-icons/fa6";
 
 function RecentActivity({ activities, title = "Recent Activity" }) {
     return (
@@ -22,11 +27,13 @@ function RecentActivity({ activities, title = "Recent Activity" }) {
             {activities.length > 0 ? (
                 <ul className="activity-list">
                     {activities.map((activity) => {
-                        const icon = getActivityIcon(activity.type);
+                        const ActivityIcon = getActivityIcon(activity.type);
                         return (
                             <li key={activity.key}>
                                 <div className="activity-content">
-                                    <span className="activity-icon">{icon}</span>
+                                    <span className="activity-icon">
+                                        <ActivityIcon aria-hidden="true" />
+                                    </span>
                                     <div>
                                         <strong>{activity.title}</strong>
                                         <span>{activity.detail}</span>
@@ -43,7 +50,7 @@ function RecentActivity({ activities, title = "Recent Activity" }) {
                 </ul>
             ) : (
                 <div className="activity-empty">
-                    <span className="empty-icon">📭</span>
+                    <FaInbox className="empty-icon" aria-hidden="true" />
                     <p>No recent activity</p>
                 </div>
             )}
@@ -53,12 +60,12 @@ function RecentActivity({ activities, title = "Recent Activity" }) {
 
 function getActivityIcon(type) {
     const icons = {
-        task: "✅",
-        deal: "💼",
-        lead: "🎯",
-        event: "📅"
+        task: FaListCheck,
+        deal: FaBriefcase,
+        lead: FaBullseye,
+        event: FaCalendarDays,
     };
-    return icons[type] || "📌";
+    return icons[type] || FaThumbtack;
 }
 
 function formatDate(dateString) {

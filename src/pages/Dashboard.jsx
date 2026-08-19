@@ -3,6 +3,7 @@
 /* ========================================================= */
 
 import { useMemo } from "react";
+import { FaCircle } from "react-icons/fa6";
 import StatCard from "../components/StatCard";
 import DashboardLeads from "../components/DashboardLeads";
 import DashboardDeals from "../components/DashboardDeals";
@@ -18,6 +19,10 @@ function localDate() {
 function Dashboard() {
     const { contacts = [], leads = [], deals = [], tasks = [], events = [] } = useCRM();
     const today = localDate();
+    const hasData = useMemo(
+        () => [contacts, leads, deals, tasks, events].some((records) => records.length > 0),
+        [contacts, leads, deals, tasks, events]
+    );
 
     // Memoized calculations
     const stats = useMemo(() => {
@@ -117,10 +122,19 @@ function Dashboard() {
                 </div>
                 <div className="page-actions">
                     <span className="badge badge--success">
-                        🟢 Live
+                        <FaCircle aria-hidden="true" /> Live
                     </span>
                 </div>
             </header>
+
+            {!hasData && (
+                <div className="card table-empty" role="status">
+                    <div className="empty-title">Your dashboard is ready</div>
+                    <div className="empty-description">
+                        Add contacts, leads, deals, tasks, or events to see CRM insights here.
+                    </div>
+                </div>
+            )}
 
             {/* Stats Grid */}
             <div className="page-grid--4">
@@ -128,13 +142,11 @@ function Dashboard() {
                     label="Total Contacts"
                     value={stats.totalContacts}
                     detail={`${stats.customers} customers`}
-                    trend={{ value: 12, direction: "up" }}
                 />
                 <StatCard
                     label="Active Leads"
                     value={stats.activeLeads}
                     detail={`${stats.qualifiedLeads} qualified`}
-                    trend={{ value: 8, direction: "up" }}
                 />
                 <StatCard
                     label="Open Deals"
@@ -145,7 +157,6 @@ function Dashboard() {
                     label="Revenue"
                     value={`$${stats.revenue.toLocaleString()}`}
                     detail={`${stats.wonDeals} won deals`}
-                    trend={{ value: 15, direction: "up" }}
                 />
             </div>
 
