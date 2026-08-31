@@ -1,327 +1,49 @@
-# SalesFlow — CSS & Application Architecture
+# Lawrence Gonzaga
 
-```text
-SalesFlow
-│
-├── Foundation
-│   ├── Reset
-│   ├── Base
-│   ├── Variables
-│   ├── Spacing
-│   ├── Typography
-│   ├── Colors
-│   ├── Radius
-│   └── Shadows
-│
-├── Application Layout
-│   ├── Sidebar
-│   ├── Header
-│   └── Main
-│
-├── Page Layouts
-│   ├── Dashboard
-│   ├── Contacts
-│   ├── Leads
-│   ├── Deals
-│   ├── Tasks
-│   ├── Calendar
-│   ├── Reports
-│   └── Settings
-│
-└── Components
-    ├── Sidebar
-    ├── Header
-    ├── Toolbar
-    ├── Button
-    ├── Form
-    ├── Card
-    ├── Badge
-    ├── Table
-    ├── Modal
-    ├── Kanban
-    └── Calendar
-```
+**Frontend / Full-Stack Developer**  
+React • Next.js • TypeScript • JavaScript • Tailwind CSS • Git
 
----
+Computer Science student at Ateneo de Davao University focused on building practical, production-style web applications with clean UI, reliable data flows, and maintainable architecture.
 
-## 1. Foundation
+## Featured Projects
 
-The **Foundation** layer contains the global rules and design tokens used throughout the application.
+### Flowboard — Project Management Platform
+**Next.js • React • TypeScript • Tailwind CSS • Supabase • PostgreSQL**
 
-```text
-Foundation
-│
-├── Reset
-├── Base
-├── Variables
-├── Spacing
-├── Typography
-├── Colors
-├── Radius
-└── Shadows
-```
+A full-stack project management application with authenticated workspaces, project and task CRUD, dashboard analytics, search/filtering, pagination, drag-and-drop workflows, responsive UI, and Row Level Security for tenant isolation.
 
-### Responsibilities
+[Repository](https://github.com/lawrencegonzaga-dev/project-manager)
 
-| Area       | Purpose                                         |
-| ---------- | ----------------------------------------------- |
-| Reset      | Removes browser default styles                  |
-| Base       | Defines global HTML/body styles                 |
-| Variables  | Stores reusable design values                   |
-| Spacing    | Defines the spacing system                      |
-| Typography | Defines fonts, sizes, weights, and line heights |
-| Colors     | Defines the application's color system          |
-| Radius     | Defines border-radius values                    |
-| Shadows    | Defines reusable shadow values                  |
+### SalesFlow CRM
+**React • JavaScript • Vite • React Router**
 
----
+A CRM interface for managing contacts, leads, deals, tasks, calendars, reports, and sales pipelines through reusable UI components and structured application flows.
 
-## 2. Application Layout
+[Repository](https://github.com/lawrencegonzaga-dev/salesflow-crm)
 
-The **Application Layout** controls the overall structure of SalesFlow.
+### ZTII — Zero-Touch Industrial Intelligence
+**Python • FastAPI • SQLite • SHAP • Docker • Modbus**
 
-```text
-Application Layout
-│
-├── Sidebar
-├── Header
-└── Main
-```
+An industrial monitoring and maintenance demo that combines device provisioning, telemetry ingestion, risk analysis, explainable signal contribution, alert workflows, edge synchronization, and simulated PLC/Modbus integration.
 
-These elements establish the main application shell that surrounds the individual pages.
+[Repository](https://github.com/lawrencegonzaga-dev/ztii)
 
----
+## Core Skills
 
-## 3. Page Layouts
+**Frontend:** React, Next.js, TypeScript, JavaScript, Tailwind CSS, HTML, CSS  
+**Backend:** Node.js, Express, Python, FastAPI, REST APIs  
+**Databases:** PostgreSQL, MySQL, MongoDB, SQLite, Supabase  
+**Tools:** Git, GitHub, Docker, Postman, Linux, Figma
 
-The **Page Layouts** layer contains the structure specific to each major SalesFlow page.
+## What I Focus On
 
-```text
-Page Layouts
-│
-├── Dashboard
-├── Contacts
-├── Leads
-├── Deals
-├── Tasks
-├── Calendar
-├── Reports
-└── Settings
-```
+- Building responsive and reusable frontend interfaces
+- Developing full-stack CRUD applications and API integrations
+- Designing secure user-specific data flows and authentication
+- Writing maintainable code with validation, testing, and clear architecture
+- Turning product requirements into usable software workflows
 
-Each page can compose reusable components from the **Components** layer.
+## Contact
 
----
-
-## 4. Components
-
-The **Components** layer contains reusable UI components used throughout the application.
-
-```text
-Components
-│
-├── Sidebar
-├── Header
-├── Toolbar
-├── Button
-├── Form
-├── Card
-├── Badge
-├── Table
-├── Modal
-├── Kanban
-└── Calendar
-```
-
-### Component Responsibilities
-
-| Component | Purpose                                            |
-| --------- | -------------------------------------------------- |
-| Sidebar   | Application navigation                             |
-| Header    | Application-level controls and information         |
-| Toolbar   | Page-level actions, search, filtering, and sorting |
-| Button    | User actions                                       |
-| Form      | User input and data submission                     |
-| Card      | Grouping related content                           |
-| Badge     | Status and category indicators                     |
-| Table     | Structured data presentation                       |
-| Modal     | Dialogs and focused interactions                   |
-| Kanban    | Visual workflow management                         |
-| Calendar  | Date and schedule management                       |
-
----
-
-# Architecture Overview
-
-```text
-                    SALESFLOW
-                        │
-        ┌───────────────┼────────────────┐
-        │               │                │
-        ▼               ▼                ▼
-   Foundation     Application       Components
-                   Layout
-        │               │                │
-        │               │                ├── Button
-        │               │                ├── Form
-        │               │                ├── Card
-        │               │                ├── Table
-        │               │                ├── Modal
-        │               │                └── ...
-        │               │
-        │               ├── Sidebar
-        │               ├── Header
-        │               └── Main
-        │
-        └───────────────┐
-                        ▼
-                  Page Layouts
-                        │
-        ┌───────────────┼───────────────┐
-        ▼               ▼               ▼
-    Dashboard       Contacts          Leads
-        │               │               │
-        └───────────────┴───────────────┘
-                        │
-                        ▼
-                 Reusable Components
-```
-
----
-
-## Architecture Rule
-
-The general responsibility of each layer is:
-
-```text
-Foundation
-    ↓
-Defines the visual system
-
-Application Layout
-    ↓
-Defines the application shell
-
-Page Layouts
-    ↓
-Defines page-specific structure
-
-Components
-    ↓
-Provides reusable UI
-```
-
-The goal is to keep **global styles, application structure, page structure, and reusable UI components separated** so the SalesFlow codebase remains organized as the application grows.
-
-
-Yes. Based on what we've established for your CRM, the **pipeline and rules** should be:
-
-### Lead Pipeline
-
-```text
-NEW → CONTACTED → QUALIFIED
-                  │
-                  ▼
-              CONVERTED
-                  │
-                  ▼
-            DEAL: QUALIFIED
-```
-
-#### Lead rules
-
-| Stage         | Meaning                          | Allowed action                    |
-| ------------- | -------------------------------- | --------------------------------- |
-| **New**       | Newly captured lead              | Move → Contacted                  |
-| **Contacted** | You've reached/contacted them    | Move → Qualified                  |
-| **Qualified** | Lead is a real sales opportunity | **Convert to Deal**               |
-| **Rejected**  | Lead isn't worth pursuing        | Move to Rejected                  |
-| **Converted** | Lead has become a Deal           | No longer active in Lead pipeline |
-
-The important distinction is:
-
-> **Converting a Lead does NOT create a Deal at `New`. It creates the Deal at `Qualified`.**
-
-So:
-
-```text
-Lead
-  New
-   ↓
-  Contacted
-   ↓
-  Qualified
-   ↓
-  [Convert to Deal]
-   ↓
-Deal
-  Qualified
-   ↓
-  Proposal
-   ↓
-  Negotiation
-   ├──→ Won
-   └──→ Lost
-```
-
-### Deal Pipeline
-
-```text
-QUALIFIED → PROPOSAL → NEGOTIATION
-                          ├──→ WON
-                          └──→ LOST
-```
-
-And **Won/Lost are terminal**.
-
-So the system should **not** mix these two pipelines:
-
-```text
-LEAD PIPELINE
-New → Contacted → Qualified → Convert
-
-DEAL PIPELINE
-Qualified → Proposal → Negotiation → Won/Lost
-```
-
-### What happens to the Contact?
-
-When the Lead is created, the Contact is already created as:
-
-```text
-Contact
-status: Prospect
-```
-
-When the Lead is converted into a Deal, you **don't create another Contact**.
-
-The existing Prospect remains the same person/company, while the Deal represents the sales opportunity.
-
-Then when the Deal reaches **Won**, that's when the Contact can become:
-
-```text
-Customer
-```
-
-So the overall relationship is:
-
-```text
-Contact
-  │
-  ├── Prospect
-  │
-  └── Lead
-       │
-       └── Qualified
-            │
-            ▼
-          Deal
-            │
-            ├── Qualified
-            ├── Proposal
-            ├── Negotiation
-            │     ├── Won → Contact becomes Customer
-            │     └── Lost
-```
-
-**Rejected** is a Lead outcome, while **Lost** is a Deal outcome. That's an important distinction for making the CRM feel reasonable rather than like one giant pipeline.
+- GitHub: [lawrencegonzaga-dev](https://github.com/lawrencegonzaga-dev)
+- Email: lawrencegonzaga.dev@gmail.com
